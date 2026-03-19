@@ -37,6 +37,80 @@ You do not need to know Deck.gl or MapLibre to follow this guide; the SDK layer 
 
 ---
 
+## Development Environment Setup
+
+You can develop applets using either Docker (recommended) or a native Node installation.
+
+### Option A: Docker
+
+```bash
+git clone https://github.com/hakaitech/netr.git
+cd netr
+docker compose up
+```
+
+This starts two containers:
+
+| Service | Port | What it does |
+|---------|------|--------------|
+| `frontend-dev` | `5173` | Vite dev server with HMR — edits to `src/` reflect instantly |
+| `api` | `8787` | Hono backend with tsx watch — edits to `server/src/` auto-restart |
+
+Source directories are bind-mounted into the containers, so you edit files on your host machine and changes are picked up immediately — no rebuild required.
+
+**Common commands:**
+
+```bash
+# Start in background
+docker compose up -d
+
+# View frontend logs
+docker compose logs -f frontend-dev
+
+# View API logs
+docker compose logs -f api
+
+# Rebuild after changing package.json
+docker compose up --build
+
+# Stop everything
+docker compose down
+```
+
+### Option B: Native Node
+
+Requires **Node 22+** and **npm 10+**.
+
+```bash
+git clone https://github.com/hakaitech/netr.git
+cd netr
+
+# Install all dependencies
+npm install
+cd server && npm install && cd ..
+
+# Terminal 1 — start the API server
+cd server && npm run dev:node
+
+# Terminal 2 — start the frontend
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173). The Vite dev server proxies `/api/*` requests to the backend on port 8787.
+
+### Verifying your setup
+
+Once running, you should see:
+
+1. The Netr dashboard at [localhost:5173](http://localhost:5173) with a dark theme
+2. The GEOINT Dashboard preset loaded by default with Live Map, Live News, Earthquakes, and Flight Tracker
+3. The "Add Applet" button in the top bar opens the catalog showing 52 applets
+4. Live data flowing — earthquake dots on the map (from USGS), news articles updating
+
+If the map shows "Loading map..." indefinitely, check that port 5173 is not blocked and that the Vite proxy is forwarding `/api` to the backend.
+
+---
+
 ## Step 1: Create the File
 
 Every applet lives in its own directory under `src/applets/`. The entry point must be `index.tsx`.

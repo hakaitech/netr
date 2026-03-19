@@ -69,8 +69,35 @@ A typical applet is **80-150 lines** of code. See [`docs/applet-development.md`]
 
 ## Quick Start
 
+### Option A: Docker (recommended)
+
 ```bash
-# Clone
+git clone https://github.com/hakaitech/netr.git
+cd netr
+
+# Development — hot-reload for frontend and backend
+docker compose up
+```
+
+That's it. Vite HMR on [localhost:5173](http://localhost:5173), API on `:8787`.
+
+Source files are bind-mounted, so edits in `src/` and `server/src/` reflect instantly — no rebuild needed.
+
+```bash
+# Production — optimized single container
+docker compose --profile prod up --build
+```
+
+The production image builds the Vite frontend, serves it through nginx on port 80, and runs the Hono API internally. One container, one port.
+
+| Mode | Frontend | API | URL |
+|------|----------|-----|-----|
+| `docker compose up` | Vite HMR on `:5173` | tsx watch on `:8787` | [localhost:5173](http://localhost:5173) |
+| `--profile prod` | nginx on `:80` | Node on `:8787` (internal) | [localhost](http://localhost) |
+
+### Option B: Native Node
+
+```bash
 git clone https://github.com/hakaitech/netr.git
 cd netr
 
@@ -87,20 +114,33 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173). Pick a preset board or build your own from the catalog.
 
-### Docker
+> **Requirements:** Node 22+, npm 10+
+
+### Docker Commands Reference
 
 ```bash
-# Development (hot-reload)
+# Start dev environment
 docker compose up
 
-# Production (single container, nginx + API on port 80)
-docker compose --profile prod up --build
-```
+# Start dev environment in background
+docker compose up -d
 
-| Mode | Frontend | API | URL |
-|------|----------|-----|-----|
-| Dev | Vite HMR `:5173` | tsx watch `:8787` | [localhost:5173](http://localhost:5173) |
-| Prod | nginx `:80` | Node `:8787` (internal) | [localhost](http://localhost) |
+# View logs
+docker compose logs -f frontend-dev
+docker compose logs -f api
+
+# Rebuild after dependency changes (package.json)
+docker compose up --build
+
+# Production build & run
+docker compose --profile prod up --build
+
+# Stop everything
+docker compose down
+
+# Stop and remove volumes
+docker compose down -v
+```
 
 ---
 
