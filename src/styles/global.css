@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@import "gridstack/dist/gridstack.min.css";
+@import "maplibre-gl/dist/maplibre-gl.css";
+
+@theme {
+  --color-surface-0: #0a0a0f;
+  --color-surface-1: #12121a;
+  --color-surface-2: #1a1a2e;
+  --color-surface-3: #252540;
+  --color-border: #2a2a45;
+  --color-text-primary: #e4e4ed;
+  --color-text-secondary: #8888a4;
+  --color-accent: #6366f1;
+  --color-accent-hover: #818cf8;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+  --color-success: #22c55e;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-surface-0);
+  color: var(--color-text-primary);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  color-scheme: dark;
+}
+
+/* ── Gridstack dark-theme overrides ── */
+
+.gs-item-content {
+  background-color: var(--color-surface-1);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem; /* rounded-lg */
+  overflow: hidden;
+}
+
+.grid-stack > .grid-stack-item > .grid-stack-item-content {
+  background-color: var(--color-surface-1);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.grid-stack > .grid-stack-item > .ui-resizable-handle {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.grid-stack > .grid-stack-item:hover > .ui-resizable-handle {
+  opacity: 0.5;
+}
+
+.grid-stack-placeholder > .placeholder-content {
+  background-color: var(--color-surface-2);
+  border: 2px dashed var(--color-border);
+  border-radius: 0.5rem;
+}

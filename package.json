@@ -1,0 +1,28 @@
+{
+  "name": "netr",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "solid-js": "^1.9.0",
+    "@deck.gl/core": "^9.1.0",
+    "@deck.gl/layers": "^9.1.0",
+    "@deck.gl/extensions": "^9.1.0",
+    "@deck.gl/mapbox": "^9.1.0",
+    "maplibre-gl": "^4.7.0",
+    "gridstack": "^10.3.0",
+    "lucide-solid": "^0.469.0",
+    "idb-keyval": "^6.2.1"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0",
+    "vite-plugin-solid": "^2.10.0",
+    "typescript": "^5.7.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0"
+  }
+}
