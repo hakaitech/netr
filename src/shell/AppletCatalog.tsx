@@ -54,6 +54,8 @@ import {
   StickyNote,
   Link,
   Rss,
+  Github,
+  MessageSquare,
   X,
   Plus,
   type LucideProps,
@@ -114,6 +116,8 @@ const ICON_MAP: Record<string, Component<LucideProps>> = {
   'sticky-note': StickyNote,
   link: Link,
   rss: Rss,
+  github: Github,
+  'message-square': MessageSquare,
 };
 
 function AppletIcon(props: { icon: string; class?: string }): JSX.Element {

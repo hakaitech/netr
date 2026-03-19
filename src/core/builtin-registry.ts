@@ -662,6 +662,30 @@ const SYSTEM_STATUS_MANIFEST: AppletManifest = {
   refreshInterval: 30000,
 };
 
+const GITHUB_HUB_MANIFEST: AppletManifest = {
+  id: 'github-hub',
+  name: 'GitHub Hub',
+  description: 'Browse issues, pull requests, and commits for any GitHub repository',
+  category: 'utility',
+  icon: 'github',
+  defaultSize: { w: 4, h: 4 },
+  minSize: { w: 3, h: 3 },
+  resizable: true,
+  refreshInterval: 30000,
+};
+
+const SLACK_FEED_MANIFEST: AppletManifest = {
+  id: 'slack-feed',
+  name: 'Slack Feed',
+  description: 'Pin Slack channels and stream messages via incoming webhooks',
+  category: 'utility',
+  icon: 'message-square',
+  defaultSize: { w: 4, h: 4 },
+  minSize: { w: 3, h: 3 },
+  resizable: true,
+  refreshInterval: 10000,
+};
+
 // ---------------------------------------------------------------------------
 // Factory
 // ---------------------------------------------------------------------------
@@ -941,6 +965,16 @@ export function createBuiltinRegistry(): PluginRegistry {
     'system-status',
     SYSTEM_STATUS_MANIFEST,
     () => import('../applets/system-status') as Promise<AppletModule>,
+  );
+  registry.registerBuiltin(
+    'github-hub',
+    GITHUB_HUB_MANIFEST,
+    () => import('../applets/github-hub') as Promise<AppletModule>,
+  );
+  registry.registerBuiltin(
+    'slack-feed',
+    SLACK_FEED_MANIFEST,
+    () => import('../applets/slack-feed') as Promise<AppletModule>,
   );
 
   return registry;

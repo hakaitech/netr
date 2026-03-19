@@ -6,6 +6,8 @@ import { earthquakes } from './routes/earthquakes';
 import { news } from './routes/news';
 import { flights } from './routes/flights';
 import { health } from './routes/health';
+import { github } from './routes/github';
+import { slack } from './routes/slack';
 
 const app = new Hono();
 
@@ -28,6 +30,8 @@ app.route('/api/earthquakes', earthquakes);
 app.route('/api/news', news);
 app.route('/api/flights', flights);
 app.route('/api/health', health);
+app.route('/api/github', github);
+app.route('/api/slack', slack);
 
 // Root fallback
 app.get('/', (c) => {
@@ -39,6 +43,8 @@ app.get('/', (c) => {
       '/api/news',
       '/api/flights',
       '/api/health',
+      '/api/github',
+      '/api/slack',
     ],
   });
 });
