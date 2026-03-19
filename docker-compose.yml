@@ -1,0 +1,58 @@
+# =============================================================================
+# Netr — Docker Compose
+# =============================================================================
+#
+# Development:  docker compose up
+# Production:   docker compose --profile prod up --build
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # Development — hot-reload frontend + backend
+  # ---------------------------------------------------------------------------
+  frontend-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: npx vite --host 0.0.0.0
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./src:/app/src
+      - ./index.html:/app/index.html
+      - ./vite.config.ts:/app/vite.config.ts
+      - ./tsconfig.json:/app/tsconfig.json
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - api
+    profiles: ["", "dev"]
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: npx tsx watch server/src/index.ts
+    ports:
+      - "8787:8787"
+    volumes:
+      - ./server/src:/app/server/src
+    environment:
+      - NODE_ENV=development
+      - PORT=8787
+    profiles: ["", "dev"]
+
+  # ---------------------------------------------------------------------------
+  # Production — single container with nginx + API
+  # ---------------------------------------------------------------------------
+  netr:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+      - PORT=8787
+    restart: unless-stopped
+    profiles: ["prod"]

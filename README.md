@@ -87,6 +87,21 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173). Pick a preset board or build your own from the catalog.
 
+### Docker
+
+```bash
+# Development (hot-reload)
+docker compose up
+
+# Production (single container, nginx + API on port 80)
+docker compose --profile prod up --build
+```
+
+| Mode | Frontend | API | URL |
+|------|----------|-----|-----|
+| Dev | Vite HMR `:5173` | tsx watch `:8787` | [localhost:5173](http://localhost:5173) |
+| Prod | nginx `:80` | Node `:8787` (internal) | [localhost](http://localhost) |
+
 ---
 
 ## Extending Netr
